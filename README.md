@@ -1,5 +1,4 @@
-# AT-AT
-Anatomically Targeted-Automated Tractography (AT-AT) 
+# Anatomically Targeted-Automated Tractography
 Developed by lawrence.binding.19@ucl.ac.uk 
 
 

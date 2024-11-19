@@ -20,32 +20,41 @@ Anatomically Targeted-Automated Tractography (AT-AT) is a collection of bash scr
 2. **Set the script path**: 
    After downloading the repository, you need to add the path to the `scripts` directory in your `bashrc`. Replace `<path>` with the actual path where the software is installed:
 
-   ```bash
+```bash
    echo 'export PATH="<path>/AT-AT/scripts:$PATH"' >> ~/.bashrc
-    ```
+```
 For example, if you installed the software in /Users/lawrence/:
-   ```bash
-    echo 'export PATH="/Users/lawrence/AT-AT/scripts:$PATH"' >> ~/.bashrc
-    ```
+```bash
+   echo 'export PATH="<path>/AT-AT/scripts:$PATH"' >> ~/.bashrc
+```
 
 Source the updated bashrc:
 To apply the changes, either close and reopen your terminal or run:
 
+```bash
 source ~/.bashrc
+```
+
 Install the required Python packages:
 Navigate to the repository directory and install the required Python dependencies via pip:
 
+```bash
 pip install -r requirements.txt
+```
+
 This will install all necessary packages for running the scripts.
 
-Usage
+## Usage
 Once everything is set up, you can call the scripts directly from your terminal. Here’s an example:
 
+```bash
 ATAT_AF.sh
+```
+
 Available Scripts
 The scripts currently available in this release (as of 19/11/2024) include:
-
 ATAT_AF.sh
+
 Script Options
 These are the available options for running the scripts:
 
@@ -61,10 +70,16 @@ These are the available options for running the scripts:
 Example Commands
 Basic usage:
 
+```bash
 ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/
+```
+
 Using all options:
 
+```bash
 ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/ -roi_dir ATAT2_Tractography/roi/ -niftyReg -alg det -threads 15
-Output
+```
+
+## Output
 Based on the basic commands, there will be .tck files present in ATAT2_Tractography/ which you can use for analysis.
 

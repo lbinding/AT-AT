@@ -48,7 +48,7 @@ This will install all necessary packages for running the scripts.
 Once everything is set up, you can call the scripts directly from your terminal. Here’s an example:
 
 ```bash
-ATAT_AF.sh
+ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/
 ```
 
 Available Scripts
@@ -69,12 +69,8 @@ These are the available options for running the scripts:
 - -threads: Select the number of threads for easyReg to use (default=10) (OPTIONAL)
 
 Example Commands
-Basic usage:
-```bash
-ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/
-```
 
-Using all options:
+An example showing all options and their usage:
 
 ```bash
 ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/ -roi_dir ATAT2_Tractography/roi/ -niftyReg -alg det -threads 15

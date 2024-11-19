@@ -4,7 +4,7 @@ Developed by: [lawrence.binding.19@ucl.ac.uk](mailto:lawrence.binding.19@ucl.ac.
 
 ## Introduction
 
-Anatomically Targeted-Automated Tractography (AT-AT) is a collection of bash scripts designed to perform tractography based on the anatomical terminations of fiber bundles. The tractography is constrained by data from 10 healthy control subjects with 7T diffusion MRI scans from the Human Connectome Project (HCP). 
+Anatomically Targeted-Automated Tractography (AT-AT) is a collection of bash scripts designed to perform tractography based on the anatomical terminations of fibre bundles. The tractography is constrained by data from 10 healthy control subjects with 7T diffusion MRI scans from the Human Connectome Project (HCP). 
 
 ## Requirements
 

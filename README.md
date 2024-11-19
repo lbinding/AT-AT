@@ -21,11 +21,11 @@ Anatomically Targeted-Automated Tractography (AT-AT) is a collection of bash scr
    After downloading the repository, you need to add the path to the `scripts` directory in your `bashrc`. Replace `<path>` with the actual path where the software is installed:
 
 ```bash
-   echo 'export PATH="<path>/AT-AT/scripts:$PATH"' >> ~/.bashrc
+echo 'export PATH="<path>/AT-AT/scripts:$PATH"' >> ~/.bashrc
 ```
 For example, if you installed the software in /Users/lawrence/:
 ```bash
-   echo 'export PATH="<path>/AT-AT/scripts:$PATH"' >> ~/.bashrc
+echo 'export PATH="/Users/lawrence/AT-AT/scripts:$PATH"' >> ~/.bashrc
 ```
 
 Source the updated bashrc:

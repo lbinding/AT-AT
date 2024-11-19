@@ -53,23 +53,23 @@ ATAT_AF.sh
 
 Available Scripts
 The scripts currently available in this release (as of 19/11/2024) include:
-ATAT_AF.sh
+- ATAT_AF.sh
 
 Script Options
 These are the available options for running the scripts:
 
--gif: Input GIF parcellation (REQUIRED)
--T1: Input T1 parcellation (REQUIRED)
--fivett: Input 5tt image (REQUIRED)
--FOD: Input CSD image (REQUIRED)
--out_dir: Output folder for all preprocessing and tracts (REQUIRED)
--roi_dir: Output folder for tract ROIs (OPTIONAL)
--niftyReg: Use NiftyReg instead of easyReg registration tract mask (OPTIONAL)
--alg: Select default algorithm: det or prob (default=prob) (OPTIONAL)
--threads: Select the number of threads for easyReg to use (default=10) (OPTIONAL)
+- -gif: Input GIF parcellation (REQUIRED)
+- -T1: Input T1 parcellation (REQUIRED)
+- -fivett: Input 5tt image (REQUIRED)
+- -FOD: Input CSD image (REQUIRED)
+- -out_dir: Output folder for all preprocessing and tracts (REQUIRED)
+- -roi_dir: Output folder for tract ROIs (OPTIONAL)
+- -niftyReg: Use NiftyReg instead of easyReg registration tract mask (OPTIONAL)
+- -alg: Select default algorithm: det or prob (default=prob) (OPTIONAL)
+- -threads: Select the number of threads for easyReg to use (default=10) (OPTIONAL)
+
 Example Commands
 Basic usage:
-
 ```bash
 ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/
 ```

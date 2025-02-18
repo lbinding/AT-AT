@@ -18,7 +18,7 @@ Anatomically Targeted-Automated Tractography (AT-AT) is a collection of bash scr
 1. **Download the repository** and place it in a desired directory. For example, you can place it at `/Users/lawrence/` (this path will be referred to as `<path>`).
 
 2. **Set the script path**: 
-   After downloading the repository, you need to add the path to the `scripts` directory in your `bashrc`. Replace `<path>` with the actual path where the software is installed:
+   After downloading the repository, you need to add the path to the `scripts` directory in your `bashrc` (LINUX). If you're on MacOS you'll need to either update your `bash_profile` or `zshrc` depending on if you're using bash or zsh in the terminl window. By default, mac uses `zshrc`. Replace `bashrc` in the following code with the desired shell target. Replace `<path>` with the actual path where the software is installed:
 
 ```bash
 echo 'export PATH="<path>/AT-AT/scripts:$PATH"' >> ~/.bashrc

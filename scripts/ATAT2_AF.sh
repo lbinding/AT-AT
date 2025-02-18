@@ -25,8 +25,7 @@ niftyReg="false"
 threads=10
 
 # Check to see if MRtrix3 is installed
-MRt3=`which tckgen`
-if [ -z ${FS_easyReg} ]; then 
+if ! command -v tckgen &> /dev/null; then
     echo ----------
     echo "MRtrix3 tckgen command is not found..."
     echo "Have you got MRtrix3 installed and correctly setup?"
@@ -86,6 +85,7 @@ else
     correct_input=1
 fi
 
+#Set algorithm
 if ( [ "${algorithm}" == "prob" ] ) ; then
     algorithm=iFOD2
     options="-backtrack -cutoff 0.1"
@@ -126,20 +126,17 @@ fi
 
 # If niftyReg is false check to see if mri_easyreg is installed
 if [ ${niftyReg} = "false" ]; then
-    FS_easyReg=`which mri_easyreg`
-    if [ -z ${FS_easyReg} ]; then 
-        echo ----------
+    if ! command -v mri_easyreg &> /dev/null; then
+        echo "----------"
         echo "mri_easyreg doesn't exist..."
         echo "Have you got Freesurfer installed?"
         echo "Have you got Freesurfer >= version 7.4?"
-        echo "exiting..." 
-        echo ----------
-        exit
-    fi
+        echo "exiting..."
+        echo "----------"
+    fi 
 # Else check whether niftyReg is installed 
 else
-    niftyReg=`which reg_aladin`
-    if [ -z ${niftyReg} ]; then 
+    if ! command -v reg_aladin &> /dev/null; then
         echo ----------
         echo "reg_aladin doesn't exist..."
         echo "Niftyreg installed?"
@@ -163,7 +160,6 @@ if [ ! -f ${T1_input} ]; then
     echo "T1 image does not exist, please check inputs"
     echo ----------
     exit 
-
 fi 
 #Check if the FOD image exists 
 if [ ! -f ${FOD_input} ]; then 
@@ -185,15 +181,16 @@ if [ -f ${gif_parc} ]; then
         echo "The script will still run but the cortical ROI may be wrong" 
         echo "CHECK YOUR GIF PARCELLATION IMAGE"
         echo ----------
-        sleep 5
-    fi 
-fi 
+        exit
+    fi
+fi
 
 #If base ROI directory is not set, set it as the output directory
 if [ -z ${base_roi_dir} ]; then 
     base_roi_dir=${out_dir}/roi
 fi 
 
+## Change stuff below 
 # Add bundle name to roi_dir
 roi_dir=${base_roi_dir}/AF
 mask_dir=${base_roi_dir}/masks

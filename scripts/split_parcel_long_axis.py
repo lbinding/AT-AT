@@ -2,9 +2,13 @@
 __author__ = 'SBV'
 import argparse
 import nibabel as nib
+import warnings
 import numpy as np
 import os
 import scipy.ndimage as ndimage
+from scipy.ndimage import label, center_of_mass
+
+warnings.simplefilter("ignore", DeprecationWarning)
 
 
 def get_lcc(im):
@@ -27,7 +31,7 @@ def get_2d_lcc(im):
     se4 = np.zeros((3, 3))
     se4[1, :] = 1
     se4[:, 1] = 1
-    labels, n_labels = ndimage.measurements.label(im, se4)
+    labels, n_labels = label(im, se4)
     # Get histogram of incidence - excluding any indices that are False
     hist_cnt = np.array(np.zeros((n_labels+1,)))
     for i in range(0, n_labels+1):
@@ -51,7 +55,7 @@ def get_3d_lcc(im):
     se6[1, 1, :] = 1
     se6[1, :, 1] = 1
     se6[:, 1, 1] = 1
-    labels, n_labels = ndimage.measurements.label(im, se6)
+    labels, n_labels = label(im, se6)
     # Get histogram of incidence - excluding any indices that are False
     hist_cnt = np.array(np.zeros((n_labels+1,)))
     for i in range(1, n_labels+1):
@@ -73,7 +77,7 @@ def long_axis(nii_image, label, use_qform=False):
     :return: main axis of the label
     """
 
-    indices = np.where(get_lcc(nii_image.get_data() == label))
+    indices = np.where(get_lcc(nii_image.get_fdata() == label))
     ind_list = list(zip(indices[0], indices[1], indices[2]))
 
     if use_qform:
@@ -150,7 +154,7 @@ tmp_dir = in_dir
 
 # Load GIF parcellation nifti
 parc_nii = nib.load(f_parc)
-parc_im = parc_nii.get_data()
+parc_im = parc_nii.get_fdata()
 qform = parc_nii.header.get_qform()
 # Get binary mask of parcel of interest
 parcel_im = np.int8(parc_im == args.label)
@@ -169,7 +173,7 @@ if roi_axis[ind_max] < 0:
 tpop_dir[side, :] = roi_axis.T
 
 brain_mask = parc_im > 3
-com_brain = ndimage.measurements.center_of_mass(brain_mask)
+com_brain = center_of_mass(brain_mask)
 
 rot_mat = get_rotation_matrix(roi_axis)
 

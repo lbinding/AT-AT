@@ -133,6 +133,7 @@ if [ ${niftyReg} = "false" ]; then
         echo "Have you got Freesurfer >= version 7.4?"
         echo "exiting..."
         echo "----------"
+        exit
     fi 
 # Else check whether niftyReg is installed 
 else
@@ -205,23 +206,19 @@ if [ ${niftyReg} = "true" ]; then
     echo "Registering MNI masks to subjects T1 using NiftyReg..." 
     #Make output directory
     if [ ! -d ${base_roi_dir}/niftiReg/ ]; then mkdir -p ${base_roi_dir}/niftiReg/; fi 
-    #Extract brainMask 
-    if [ ! -f ${base_roi_dir}/niftiReg/T1_brain.nii.gz ]; then 
-        mri_synthstrip -i ${T1} -o ${base_roi_dir}/niftiReg/T1_brain.nii.gz
-    fi 
-    #Align brain T1 to MNI brain 
+    #Align T1 to MNI (Affine) 
     if [ ! -f ${base_roi_dir}/niftiReg/T1_to_MNI_affine.mat ]; then 
-        reg_aladin -ref ${FSLDIR}/data/standard/MNI152_T1_1mm_brain -flo ${base_roi_dir}/niftiReg/T1_brain.nii.gz -aff ${base_roi_dir}/niftiReg/T1_to_MNI_affine.mat
+        reg_aladin -ref ${FSLDIR}/data/standard/MNI152_T1_1mm -flo ${T1} -aff ${base_roi_dir}/niftiReg/T1_to_MNI_affine.mat
     fi 
     #Invert that transformation so its MNI to T1
     if [ ! -f ${base_roi_dir}/niftiReg/MNI_to_T1_affine.mat ]; then 
         convert_xfm -omat ${base_roi_dir}/niftiReg/MNI_to_T1_affine.mat -inverse ${base_roi_dir}/niftiReg/T1_to_MNI_affine.mat 
     fi 
-    #Perform non-linear registration
+    #Perform non-linear registration of MNI to T1 using Affine initially
     if [ ! -f ${base_roi_dir}/niftiReg/MNI_to_T1_f3d.nii.gz ]; then 
         reg_f3d -ref ${T1} -flo ${FSLDIR}/data/standard/MNI152_T1_1mm.nii.gz -aff ${base_roi_dir}/niftiReg/MNI_to_T1_affine.mat -cpp ${base_roi_dir}/niftiReg/MNI_to_T1_cpp.nii.gz -res ${base_roi_dir}/niftiReg/MNI_to_T1_f3d.nii.gz
     fi
-    #Move masks across to dMRI space
+    #Move Anatomical Priors across to dMRI space
     if [ ! -f ${mask_dir}/left_AFae_mask_dil.nii.gz ]; then 
         reg_resample -flo ${anatomical_priors}/left_AFae_mask_dil.nii.gz -ref ${T1} -trans ${base_roi_dir}/niftiReg/MNI_to_T1_cpp.nii.gz -res ${mask_dir}/left_AFae_mask_dil.nii.gz
     fi 
@@ -246,7 +243,7 @@ else
     if [ ! -d ${base_roi_dir}/easyReg/ ]; then mkdir -p ${base_roi_dir}/easyReg/; fi 
     #Use synthSeg to parcellate the T1 image 
     if [ ! -f ${base_roi_dir}/easyReg/T1_synthseg.nii.gz ]; then 
-      mri_synthseg --i ${T1} --o ${base_roi_dir}/easyReg/T1_synthseg.nii.gz --robust --parc --threads 1
+      mri_synthseg --i ${T1} --o ${base_roi_dir}/easyReg/T1_synthseg.nii.gz --robust --parc --threads ${threads}
     fi 
     #Perform easyReg registration
     if [ ! -f ${base_roi_dir}/easyReg/MNI_to_T1_fwd.nii.gz ]; then 

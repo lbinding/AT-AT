@@ -286,7 +286,13 @@ if [ ! -f ${roi_dir}/left_AF_seed.nii.gz ]; then
     mrcalc ${gif_parc} 164 -eq ${roi_dir}/left_pars_op.nii.gz
     mrcalc ${gif_parc} 206 -eq ${roi_dir}/left_pars_tri.nii.gz
     #Combine them
-    mrcalc ${roi_dir}/left_MFG_DLPFC.nii.gz ${roi_dir}/left_MFG_dPMC.nii.gz ${roi_dir}/left_PcG_ven.nii.gz ${roi_dir}/left_PcG_mid.nii.gz ${roi_dir}/left_pars_op.nii.gz ${roi_dir}/left_pars_tri.nii.gz -add ${roi_dir}/left_AF_seed.nii.gz
+    mrcalc ${roi_dir}/left_MFG_DLPFC.nii.gz \
+        ${roi_dir}/left_MFG_dPMC.nii.gz -add \
+        ${roi_dir}/left_PcG_ven.nii.gz -add \
+        ${roi_dir}/left_PcG_mid.nii.gz -add \
+        ${roi_dir}/left_pars_op.nii.gz -add \
+        ${roi_dir}/left_pars_tri.nii.gz -add \
+        ${roi_dir}/left_AF_seed.nii.gz tst.nii.gz
 fi
 #   Right Hemisphere Seed
 if [ ! -f ${roi_dir}/right_AF_seed.nii.gz ]; then
@@ -303,10 +309,10 @@ if [ ! -f ${roi_dir}/right_AF_seed.nii.gz ]; then
     mrcalc ${gif_parc} 205 -eq ${roi_dir}/right_pars_tri.nii.gz
     # Combine all extracted regions into a single seed mask
     mrcalc ${roi_dir}/right_MFG_dPMC.nii.gz \
-        ${roi_dir}/right_MFG_DLPFC.nii.gz \
-        ${roi_dir}/right_PcG_ven.nii.gz \
-        ${roi_dir}/right_PcG_mid.nii.gz \
-        ${roi_dir}/right_pars_op.nii.gz \
+        ${roi_dir}/right_MFG_DLPFC.nii.gz -add \
+        ${roi_dir}/right_PcG_ven.nii.gz -add \
+        ${roi_dir}/right_PcG_mid.nii.gz -add \
+        ${roi_dir}/right_pars_op.nii.gz -add \
         ${roi_dir}/right_pars_tri.nii.gz -add \
         ${roi_dir}/right_AF_seed.nii.gz
 fi
@@ -406,10 +412,10 @@ fi
 echo "Performing tractography"
 #Tractography Left AF Auditory Encoding
 if [ ! -f ${out_dir}/left_AFae.tck ]; then 
-    tckgen ${FOD} -algorithm ${algorithm} -act ${fivett} -seed_image ${roi_dir}/left_AF_seed_dil.nii.gz -include ${roi_dir}/left_AFae_termination_dil.nii.gz -maxlength 300 ${out_dir}/left_AFae_prob_SW.tck -seed_unidirectional  -mask ${mask_dir}/left_AFae_mask_dil.nii.gz ${options} -seeds 25000000 -select 10k
-    tckgen ${FOD} -algorithm ${algorithm} -act ${fivett} -seed_image ${roi_dir}/left_AFae_termination_dil.nii.gz -include ${roi_dir}/left_AF_seed_dil.nii.gz -maxlength 300 ${out_dir}/left_AFae_prob_WS.tck -seed_unidirectional  -mask ${mask_dir}/left_AFae_mask_dil.nii.gz ${options} -seeds 25000000 -select 10k
+    tckgen ${FOD} -algorithm ${algorithm} -act ${fivett} -seed_image ${roi_dir}/left_AFae_seed_dil.nii.gz -include ${roi_dir}/left_AFae_termination_dil.nii.gz -maxlength 300 ${out_dir}/left_AFae_prob_SW.tck -seed_unidirectional  -mask ${mask_dir}/left_AFae_mask_dil.nii.gz ${options} -seeds 25000000 -select 10k
+    tckgen ${FOD} -algorithm ${algorithm} -act ${fivett} -seed_image ${roi_dir}/left_AFae_termination_dil.nii.gz -include ${roi_dir}/left_AFae_seed_dil.nii.gz -maxlength 300 ${out_dir}/left_AFae_prob_WS.tck -seed_unidirectional  -mask ${mask_dir}/left_AFae_mask_dil.nii.gz ${options} -seeds 25000000 -select 10k
     tckedit ${out_dir}/left_AFae_prob_SW.tck ${out_dir}/left_AFae_prob_WS.tck ${out_dir}/left_AFae_prob_unpruned.tck
-    tckedit ${out_dir}/left_AFae_prob_unpruned.tck -include ${roi_dir}/left_AF_seed_dil.nii.gz -include ${roi_dir}/left_AFae_termination_dil.nii.gz ${out_dir}/left_AFae_prob_unpruned_ends.tck -ends_only
+    tckedit ${out_dir}/left_AFae_prob_unpruned.tck -include ${roi_dir}/left_AFae_seed_dil.nii.gz -include ${roi_dir}/left_AFae_termination_dil.nii.gz ${out_dir}/left_AFae_prob_unpruned_ends.tck -ends_only
     ${pruning} -in ${out_dir}/left_AFae_prob_unpruned_ends.tck -templ_im ${T1} -out ${out_dir}/left_AFae.tck -thr 0.05
     if [ -f ${out_dir}/left_AFae.tck ]; then 
         rm -r ${out_dir}/left_AFae_prob_SW.tck ${out_dir}/left_AFae_prob_WS.tck ${out_dir}/left_AFae_prob_unpruned.tck ${out_dir}/left_AFae_prob_unpruned_ends.tck

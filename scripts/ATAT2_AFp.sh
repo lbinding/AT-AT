@@ -257,18 +257,18 @@ if [ ! -f ${roi_dir}/left_AFp_seed.nii.gz ]; then
     mrcalc ${gif_parc} 108 -eq ${roi_dir}/left_AG.nii.gz
     mrcalc ${gif_parc} 196 -eq ${roi_dir}/left_SMG.nii.gz
     #Combine them
-    mrcalc ${roi_dir}/left_AG.nii.gz \ 
-           ${roi_dir}/left_SMG.nii.gz -add \
-           ${roi_dir}/left_AFp_seed.nii.gz
+    mrcalc ${roi_dir}/left_AG.nii.gz \
+      ${roi_dir}/left_SMG.nii.gz -add \
+      ${roi_dir}/left_AFp_seed.nii.gz -force
 fi                  
 #right hemisphere
 if [ ! -f ${roi_dir}/right_AFp_seed.nii.gz ]; then
     mrcalc ${gif_parc} 107 -eq ${roi_dir}/right_AG.nii.gz
     mrcalc ${gif_parc} 195 -eq ${roi_dir}/right_SMG.nii.gz
     #Combine them
-    mrcalc ${roi_dir}/right_AG.nii.gz \ 
-           ${roi_dir}/right_SMG.nii.gz -add \
-           ${roi_dir}/right_AFp_seed.nii.gz
+    mrcalc ${roi_dir}/right_AG.nii.gz \
+      ${roi_dir}/right_SMG.nii.gz -add \
+      ${roi_dir}/right_AFp_seed.nii.gz
 fi 
 #Termination regions
 if [ ! -f ${roi_dir}/left_AFp_termination.nii.gz ] ; then

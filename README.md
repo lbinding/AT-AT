@@ -6,6 +6,10 @@ Developed by: [lawrence.binding.19@ucl.ac.uk](mailto:lawrence.binding.19@ucl.ac.
 
 Anatomically Targeted-Automated Tractography (AT-AT) is a collection of bash scripts designed to perform tractography based on the anatomical terminations of fibre bundles. The tractography is constrained by data from 10 healthy control subjects with 7T diffusion MRI scans from the Human Connectome Project (HCP). 
 
+### Available Bundles
+- Arcuate Fasciculus (3 sub-fasciculi as per https://academic.oup.com/brain/article/145/4/1242/6526361?login=false)
+- Arcuate Fasciculus posterior 
+
 ## Requirements
 
 - **Operating System**: Mac or Linux
@@ -52,8 +56,9 @@ ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mi
 ```
 
 Available Scripts
-The scripts currently available in this release (as of 19/11/2024) include:
+The scripts currently available in this release (as of 27/02/2025) include:
 - ATAT_AF.sh
+- ATAT_AFp.sh
 
 Script Options
 These are the available options for running the scripts:

@@ -59,6 +59,7 @@ Available Scripts
 The scripts currently available in this release (as of 27/02/2025) include:
 - ATAT_AF.sh
 - ATAT_AFp.sh
+- ATAT_CST.sh
 
 Script Options
 These are the available options for running the scripts:

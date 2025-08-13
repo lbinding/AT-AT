@@ -39,7 +39,24 @@ To apply the changes, either close and reopen your terminal or run:
 source ~/.bashrc
 ```
 
-Install the required Python packages:
+3. **Creating a python environment**:
+Using a dedicated Conda environment is highly recommended to manage Python dependencies and avoid conflicts with other projects or your system's default Python installation. I recommend miniconda to manage your environments, but its your preference. 
+
+**Create the Conda Environment:**
+Open your terminal and run the following command to create a new environment named ATAT_env with Python 3.11.5.
+
+```bash
+conda create --name ATAT_env python=3.11.5
+```
+Activate the newly created environment to start using it.
+
+```bash
+conda activate ATAT_env
+```
+
+Your terminal prompt should now show (ATAT_env) at the beginning, indicating that the environment is active.
+
+4. **Install the required Python packages:**
 Navigate to the repository directory and install the required Python dependencies via pip:
 
 ```bash

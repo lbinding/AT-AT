@@ -39,15 +39,15 @@ args=("$@")
 i=0
 while [ $i -lt $# ]; do
     if ( [ ${args[i]} = "-gif" ] || [ ${args[i]} = "-g" ] ) ; then
-      # Set destrieux parcellation
+      # Set GIF parcellation
       let i=$i+1
       gif_parc=${args[i]}
     elif ( [ ${args[i]} = "-T1" ] || [ ${args[i]} = "-t1" ] ) ; then
-      # Set gif parcellation
+      # Set T1 image
       let i=$i+1
       T1=${args[i]}
     elif ( [ ${args[i]} = "-fivett" ] ) ; then
-      # Set fivett 
+      # Set five tissue type image 
       let i=$i+1
       fivett=${args[i]}
     elif ( [ ${args[i]} = "-FOD" ] || [ ${args[i]} = "-fod" ] ) ; then
@@ -63,15 +63,15 @@ while [ $i -lt $# ]; do
       let i=$i+1
       base_roi_dir=${args[i]}
     elif ( [ ${args[i]} = "-niftyReg" ] ) ; then
-      # Set ROI dir 
+      # Set algorithm to use niftyReg 
       let i=$i+1
       niftyReg="true"
     elif ( [ ${args[i]} = "-alg" ] ) ; then
-      # Set ROI dir 
+      # Set tractography algorithm 
       let i=$i+1
       algorithm=${args[i]}
     elif ( [ ${args[i]} = "-threads" ] ) ; then
-      # Set ROI dir 
+      # Set number of threads
       let i=$i+1
       threads=${args[i]}
     fi
@@ -111,7 +111,7 @@ if ( [[ ${correct_input} -eq 0 ]] ) ; then
   echo " -FOD:          Input CSD image -- REQUIRED"  
   echo " -out_dir:      Output folder for all preprocessing and tracts -- REQUIRED"  
   echo " -roi_dir:      Output folder for tract ROIs -- OPTIONAL"  
-  echo " -niftyReg:     Use NiftyReg registration tract mask -- OPTIONAL"  
+  echo " -niftyReg:     Use NiftyReg for tract mask registration (default=easyReg) -- OPTIONAL"  
   echo " -alg:          Select default algorithm: det or prob (default=prob) -- OPTIONAL" 
   echo " -threads:      Select number of threads for easyReg to use (default=10) -- OPTIONAL"  
   echo ""
@@ -292,7 +292,7 @@ if [ ! -f ${roi_dir}/left_AF_seed.nii.gz ]; then
         ${roi_dir}/left_PcG_mid.nii.gz -add \
         ${roi_dir}/left_pars_op.nii.gz -add \
         ${roi_dir}/left_pars_tri.nii.gz -add \
-        ${roi_dir}/left_AF_seed.nii.gz tst.nii.gz
+        ${roi_dir}/left_AF_seed.nii.gz
 fi
 #   Right Hemisphere Seed
 if [ ! -f ${roi_dir}/right_AF_seed.nii.gz ]; then

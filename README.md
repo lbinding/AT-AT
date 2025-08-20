@@ -1,6 +1,6 @@
 # Anatomically Targeted-Automated Tractography (AT-AT)
 
-Developed by: [lawrence.binding.19@ucl.ac.uk](mailto:lawrence.binding.19@ucl.ac.uk)
+Developed by: [lawrence.binding@ucl.ac.uk](mailto:lawrence.binding@ucl.ac.uk)
 
 ## Introduction
 
@@ -9,6 +9,13 @@ Anatomically Targeted-Automated Tractography (AT-AT) is a collection of bash scr
 ### Available Bundles
 - Arcuate Fasciculus (3 sub-fasciculi as per https://academic.oup.com/brain/article/145/4/1242/6526361?login=false)
 - Arcuate Fasciculus posterior 
+- Corticospinal Tract
+- Inferior Fronto-occipital Fasciculus 
+- Inferior Longitudinal Fasciculus 
+- Middle Longitudinal Fasciculus 
+- Medial Occipital Longitudinal Fasciculus 
+- Uncinate Fasciculus
+- Ventral Occipital Fasciculus 
 
 ## Requirements
 
@@ -69,14 +76,21 @@ This will install all necessary packages for running the scripts.
 Once everything is set up, you can call the scripts directly from your terminal. Here’s an example:
 
 ```bash
-ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/
+ATAT2_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/
 ```
 
 Available Scripts
-The scripts currently available in this release (as of 27/02/2025) include:
-- ATAT_AF.sh
-- ATAT_AFp.sh
-- ATAT_CST.sh
+The scripts currently available in this release (as of 19/08/2025) include:
+- ATAT2_AF.sh
+- ATAT2_AFp.sh
+- ATAT2_CST.sh
+- ATAT2_IFOF.sh
+- ATAT2_ILF.sh
+- ATAT2_MOLT.sh
+- ATAT2_MLF.sh
+- ATAT2_UF.sh
+- ATAT2_VOF.sh
+
 
 Script Options
 These are the available options for running the scripts:
@@ -93,11 +107,18 @@ These are the available options for running the scripts:
 
 Example Commands
 
+A typical run: 
+
+```bash
+ATAT2_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/ -roi_dir ATAT2_Tractography/roi/
+```
+
 An example showing all options and their usage:
 
 ```bash
-ATAT_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/ -roi_dir ATAT2_Tractography/roi/ -niftyReg -alg det -threads 15
+ATAT2_AF.sh -gif gif_parc.nii.gz -T1 T1.nii.gz -fivett 5tt_hsvs.nii.gz -FOD wm.mif -out_dir ATAT2_Tractography/ -roi_dir ATAT2_Tractography/roi/ -niftyReg -alg det -threads 15
 ```
+
 
 ## Output
 Based on the basic commands, there will be .tck files present in ATAT2_Tractography/ which you can use for analysis.

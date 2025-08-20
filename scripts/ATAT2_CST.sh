@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Cortical Spinal Tract (CST) AT-ATv3
+# Cortical Spinal Tract (CST) AT-ATv2
 #   Based off 7T tractography
 # 
 # REQUIREMENTS: 

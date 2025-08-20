@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Arcuate Fasciculus posterior AT-ATv3
+# Arcuate Fasciculus posterior AT-ATv2
 #   Utilises 7T anatomical priors from HCP subjects
 # REQUIREMENTS: 
 #       FSL path in shell 
@@ -41,11 +41,11 @@ args=("$@")
 i=0
 while [ $i -lt $# ]; do
     if ( [ ${args[i]} = "-gif" ] || [ ${args[i]} = "-g" ] ) ; then
-      # Set destrieux parcellation
+      # Set gif parcellation
       let i=$i+1
       gif_parc=${args[i]}
     elif ( [ ${args[i]} = "-T1" ] || [ ${args[i]} = "-t1" ] ) ; then
-      # Set gif parcellation
+      # Set T1 image
       let i=$i+1
       T1=${args[i]}
     elif ( [ ${args[i]} = "-fivett" ] ) ; then
@@ -65,15 +65,15 @@ while [ $i -lt $# ]; do
       let i=$i+1
       base_roi_dir=${args[i]}
     elif ( [ ${args[i]} = "-niftyReg" ] ) ; then
-      # Set ROI dir 
+      # Set niftyReg flag
       let i=$i+1
       niftyReg="true"
     elif ( [ ${args[i]} = "-alg" ] ) ; then
-      # Set ROI dir 
+      # Set algorithm
       let i=$i+1
       algorithm=${args[i]}
     elif ( [ ${args[i]} = "-threads" ] ) ; then
-      # Set ROI dir 
+      # Set number of threads for easyReg to use 
       let i=$i+1
       threads=${args[i]}
     fi
